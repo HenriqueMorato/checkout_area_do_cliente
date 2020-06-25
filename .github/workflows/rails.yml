@@ -25,8 +25,6 @@ jobs:
        with:
          ruby-version: ${{ env.RUBY_VERSION }}
      - name: Install Rubocop
-       run: |
-         gem install bundler -v {{ env.BUNDLER_VERSION }}
-         bundle install rubocop
+       run: bundle install rubocop
      - name: Check
        run: rubocop -c .rubocop.yml
