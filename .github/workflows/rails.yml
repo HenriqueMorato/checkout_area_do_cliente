@@ -67,6 +67,7 @@ jobs:
          ruby-version: ${{ env.RUBY_VERSION }}
      - name: Apply gem cache
        with:
+         uses: actions/cache@v2
          path: vendor/bundle
          key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
          restore-keys: |
