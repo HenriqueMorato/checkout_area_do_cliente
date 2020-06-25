@@ -1,0 +1,32 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Rails check
+
+env:
+  RUBY_VERSION: 2.6.6
+  BUNDLER_VERSION: 2.1.4
+
+# Controls when the action will run. Triggers the workflow on push or pull request
+# events but only for the master branch
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  rubocop:
+   name: Rubocop
+   runs-on: ubuntu-latest
+   steps:
+     - uses: actions/checkout@v2
+     - uses: ruby/setup-ruby@v1
+       with:
+         ruby-version: ${{ env.RUBY_VERSION }}
+     - name: Install Rubocop
+       run: |
+         gem install bundler -v {{ env.BUNDLER_VERSION }}
+         bundle install rubocop
+     - name: Check
+       run: rubocop -c .rubocop.yml
